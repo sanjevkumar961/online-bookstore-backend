@@ -6,7 +6,8 @@ const Cart = require('../models/Cart');
 // @route   POST /api/orders/checkout
 // @access  Private
 const checkout = asyncHandler(async (req, res) => {
-  const { shippingAddress } = req.body;
+  const { shippingDetails } = req.body;
+  
   const cart = await Cart.findOne({ user: req.user._id });
 
   if (!cart || cart.items.length === 0) {
@@ -18,7 +19,7 @@ const checkout = asyncHandler(async (req, res) => {
   const order = new Order({
     user: req.user._id,
     orderItems: cart.items,
-    shippingAddress,
+    shippingAddress: shippingDetails,
     totalPrice,
   });
 
