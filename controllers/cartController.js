@@ -55,9 +55,8 @@ const removeFromCart = asyncHandler(async (req, res) => {
 
   if (!cart) {
     return res.status(404).json({ message: 'Cart is empty' });
-  }
-
-  cart.items = cart.items.filter(item => item.book.toString() !== req.params.bookId);
+  }  
+  cart.items = cart.items.filter(item => item._id.toString() !== req.params.bookId);
   await cart.save();
   res.json(cart);
 });
